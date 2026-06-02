@@ -1,0 +1,23 @@
+<h1 class="center">Liste des Pokémons</h1>
+
+<div class="container">
+  <div class="row">
+    @for (pokemon of pokemons; track pokemon.id) {
+      <div class="col s6 m4">
+        <div class="card">
+          <div class="card-image">
+            <img [src]="pokemon.picture" [alt]="pokemon.name">
+          </div>
+          <div class="card-content">
+            <span class="card-title">{{ pokemon.name }}</span>
+            <p><small>{{ pokemon.created | date: "dd/MM/yy" }}</small></p>
+            @for (type of pokemon.types; track type) {
+              <span [class]="type | pokemonTypeColor">{{ type }}</span>
+            }
+            <!-- <p>Type: {{ pokemon.types  }}</p> -->
+          </div>
+        </div>
+      </div>
+    }
+  </div>
+</div>
