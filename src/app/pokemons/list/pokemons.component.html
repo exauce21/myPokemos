@@ -1,10 +1,10 @@
-<h1 class="center">Liste des Pokémons</h1>
+<h1 class="center">Liste de pokémons</h1>
 
 <div class="container">
   <div class="row">
     @for (pokemon of pokemons; track pokemon.id) {
       <div class="col s6 m4">
-        <pkmBorderCard class="card horizontal">
+        <pkmnBorderCard class="card horizontal" (click)="selectPokemon(pokemon)">
 
           <div class="card-image">
             <!-- <img src="{{ pokemon.picture }}" alt="img"> -->      
@@ -20,7 +20,7 @@
             </div>
           </div>
 
-        </pkmBorderCard>
+        </pkmnBorderCard>
       </div>
     }
   </div>
