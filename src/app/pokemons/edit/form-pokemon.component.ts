@@ -1,9 +1,8 @@
 import { Component, OnInit, Input } from "@angular/core";
-import { Pokemon } from "../donnees/pokemon";
 import { PokemonTypeColor } from "../pipes/pokemon-type-color.pipe";
 import { Router } from "@angular/router";
-import { DatePipe } from "@angular/common";
 import { FormsModule } from "@angular/forms";
+import { PokemonsService } from "../pokemons.service";
 
 @Component({
   standalone: true,
@@ -17,17 +16,14 @@ export class FormPokemonComponent implements OnInit{
   
   types: any = [];
 
-  constructor(private router: Router){
-    this.types = this.getPokemonTypes();
+  constructor(private router: Router, private pokemonsService: PokemonsService){
+    this.types = this.pokemonsService.getPokemonTypes();
   }
 
   ngOnInit(): void {
 
   }
 
-  getPokemonTypes(): string[]{
-    return ['Plante', 'Feu', 'Eau', 'Poison', 'Psy', 'Electrik', 'Normal', 'Fée', 'Vol', 'Insecte'];
-  }
 
   // 1 - Détermine si le type passé en paramètres appartient ou non au pokémon en cours d'édition
   hasType(type:string):boolean{
@@ -67,8 +63,12 @@ export class FormPokemonComponent implements OnInit{
 
   
 
-
   onSubmit(){
+
+    this.pokemonsService.updatePokemon(this.pokemon).subscribe( () => 
+      this.router.navigate(['pokemon', this.pokemon.id])
+    )
+
     let link= ['pokemon', this.pokemon.id];
     this.router.navigate(link);
   }
