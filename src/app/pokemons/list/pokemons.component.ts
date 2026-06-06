@@ -6,12 +6,13 @@ import { BorderCardDirective } from "../directives/border-card.directive";
 import { Router } from "@angular/router";
 import { PokemonsService } from "../pokemons.service";
 import { SearchPokemonComponent } from "../search-pokemons/search-pokemons.component";
+import { PokemonRarete } from "../pipes/pokemon-rarete.pipe";
 
 @Component({
   standalone: true,
   selector: 'list-pokemons',
   templateUrl: './pokemons.component.html',
-  imports: [DatePipe, PokemonTypeColor, BorderCardDirective, SearchPokemonComponent]
+  imports: [DatePipe, PokemonTypeColor, BorderCardDirective, SearchPokemonComponent, PokemonRarete]
 })
 export class PokemonsComponent implements OnInit{
 
@@ -23,16 +24,20 @@ export class PokemonsComponent implements OnInit{
   
   ngOnInit(): void {
     this.pokemonService.getPokemons().subscribe((pokemons) => {
-        console.log(pokemons);
         this.pokemons = pokemons
-        console.log(this.pokemons);
       });
-      console.log(this.pokemons);
   }
 
   selectPokemon(pokemon: Pokemon){
     let link = ['/pokemon', pokemon.id];
     this.router.navigate(link);
+  }
+
+  deletePokemon(pokemon: Pokemon){
+    this.pokemonService.deletePokemon(pokemon.id).subscribe(() => {
+        this.pokemons = this.pokemons.filter(p => p.id !== pokemon.id);
+      }
+    );
   }
 
 }

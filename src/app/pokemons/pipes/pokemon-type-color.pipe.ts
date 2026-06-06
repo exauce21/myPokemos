@@ -8,7 +8,6 @@ export class PokemonTypeColor implements PipeTransform {
     let color : string;
 
     switch(type){
-      
       case 'Feu':
         color = 'red lighten-1';
         break;

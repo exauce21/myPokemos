@@ -18,8 +18,42 @@
               <p>{{ pokemon.name }}</p>
               <p><small>{{ pokemon.created | date: "dd/MM/yy"}}</small></p>
               @for (type of pokemon.types; track $index) {
-                <span class="{{ type | pokemonTypeColor }}" >{{type}}</span>
+                <span class="{{ type | pokemonTypeColor }}">{{type}}</span>
               }
+              <br>
+              @if (pokemon.rarete | pokemonRarete; as r) {
+                <span [style.color]="r.color">
+                  @if (pokemon.rarete == 1){
+                    <i class="material-icons">star</i>
+                  } @else if(pokemon.rarete == 2){
+                    <i class="material-icons">star</i>  
+                    <i class="material-icons">star</i>
+                  } @else if(pokemon.rarete == 3){
+                    <i class="material-icons">star</i>  
+                    <i class="material-icons">star</i>
+                    <i class="material-icons">star</i>
+                  } @else if(pokemon.rarete == 4){
+                    <i class="material-icons">star</i>  
+                    <i class="material-icons">star</i>
+                    <i class="material-icons">star</i>
+                    <i class="material-icons">star</i>
+                  }@else {
+                    <i class="material-icons">star</i>  
+                    <i class="material-icons">star</i>
+                    <i class="material-icons">star</i>
+                    <i class="material-icons">star</i>
+                    <i class="material-icons">star</i>
+                  }
+                </span>
+              }
+              <div class="card-action">
+                <button (click)="deletePokemon(pokemon); 
+                        $event.stopPropagation()"
+                        class="btn waves-light red"
+                        >
+                        Supprimer
+                      </button>
+              </div> 
             </div>
           </div>
 
